@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget{
+class CustoCad extends StatefulWidget{
   @override
-  _HomeState createState() => _HomeState();
+  _CustoCadState createState() => _CustoCadState();
 }
 
-class _HomeState extends State<Home> {
-
+class _CustoCadState extends State<CustoCad>{
   Widget buildAppBar(){
     return AppBar(
       title: Text("Combustível Ideal"),
@@ -28,5 +27,4 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return buildScaffold();
   }
-
 }

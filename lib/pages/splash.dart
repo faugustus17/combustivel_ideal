@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'custoCad.dart';
 
 class SplashHome extends StatefulWidget{
   @override
@@ -13,7 +13,7 @@ class _SplashHomeState extends State<SplashHome>{
     Future.delayed(Duration(seconds: 5)).then(( _ ){
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-              builder: (context) => Home()
+              builder: (context) => CustoCad()
           )
       );
     });
@@ -22,13 +22,12 @@ class _SplashHomeState extends State<SplashHome>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: Colors.white,
       body: Column(
-        
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
+         Container(
             width: 200,
             height: 200,
             decoration: BoxDecoration(
@@ -38,6 +37,17 @@ class _SplashHomeState extends State<SplashHome>{
             ),
           ),
         ],
+      ),
+      bottomSheet: Container(
+        width: double.maxFinite,
+        height: 50,
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Versão 1.0",
+            style: TextStyle(color: Colors.black),
+          ),
+        )
       ),
     );
   }
