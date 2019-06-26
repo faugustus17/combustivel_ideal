@@ -22,32 +22,61 @@ class _SplashHomeState extends State<SplashHome>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
+        fit: StackFit.expand,
         children: <Widget>[
-         Container(
-            width: 200,
-            height: 200,
+          Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/logo_splash.png"),
-              ),
+              color: Colors.white
             ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 50.0),
+              ),
+              Text(
+                "Combustível Ideal",
+                style: TextStyle(
+                  fontSize: 30.0,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/logo_splash.png"),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
       bottomSheet: Container(
-        width: double.maxFinite,
-        height: 50,
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            "Versão 1.0",
-            style: TextStyle(color: Colors.black),
-          ),
-        )
+          width: double.maxFinite,
+          height: 50,
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Versão 1.0",
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+          )
       ),
     );
   }
