@@ -16,7 +16,7 @@ class CustoHelper{
     final pathDb = join(path, "custo.db");
 
     final String sql = "CREATE TABLE custo ("
-        "c_id INTEGER PRIMARY KEY"
+        "c_id INTEGER PRIMARY KEY, "
         "c_nome_posto TEXT, "
         "c_preco_alcool REAL, "
         "c_preco_gasolina REAL, "
