@@ -19,7 +19,6 @@ class _CustoCadState extends State<CustoCad>{
   CustoHelper helper = CustoHelper();
 
   String _data='';
-
   final _nomePostoController = TextEditingController();
   final _preco_alcoolController = TextEditingController();
   final _preco_gasolinaController = TextEditingController();
@@ -75,24 +74,6 @@ class _CustoCadState extends State<CustoCad>{
     );
   }
 
-  /*void _showCustoCad({Custo custo}) async {
-    final regCusto = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CustoCad(
-          custo: custo
-      )),
-    );
-
-    if (regCusto != null) {
-      if (custo != null) {
-        await helper.update(regCusto);
-      } else {
-        await helper.insert(regCusto);
-      }
-      //_loadAllCustos();
-    }
-  }*/
-
   void _showAlert(){
     showDialog(
         context: context,
@@ -110,14 +91,9 @@ class _CustoCadState extends State<CustoCad>{
             actions: <Widget>[
               FlatButton(
                 onPressed: (){
-                  /*print(_data);
-                  print(_nomePostoController.text);
-                  print(_preco_alcoolController.text);
-                  print(_preco_gasolinaController.text);*/
-                  print(_custoTemp);
-                  Navigator.pop(context);
+                  Navigator.pop(context, _custoTemp.id=null);
                   helper.insert(_custoTemp);
-                  initState();
+                  _clear();
                 },
                 child: Text("OK"),
               ),
@@ -125,6 +101,13 @@ class _CustoCadState extends State<CustoCad>{
           );
         }
     );
+  }
+
+  void _clear(){
+    _nomePostoController.clear();
+    _preco_alcoolController.clear();
+    _preco_gasolinaController.clear();
+    _data_horaCntroller.clear();
   }
 
   Widget buildRaisedButton(){
@@ -145,6 +128,7 @@ class _CustoCadState extends State<CustoCad>{
                 [dd, '/', mm, '/', yyyy, ' as ', HH, ':', nn, ":", ss]).toString();
             _custoTemp.data_hora = _data;
             _showAlert();
+            //_clear();
           });
         } else {
           FocusScope.of(context).requestFocus(_nomeFocus);
@@ -222,8 +206,4 @@ class _CustoCadState extends State<CustoCad>{
   Widget build(BuildContext context) {
     return buildScaffold();
   }
-
-
-
-
 }

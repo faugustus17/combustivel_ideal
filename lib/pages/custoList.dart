@@ -30,16 +30,30 @@ class _CustoListState extends State<CustoList> {
 
   Widget buildAppBar(){
     return AppBar(
+
+      title: Text("Combustível Ideal",
+        style: TextStyle(color: Colors.blue[100]),
+      ),
+      automaticallyImplyLeading: false,
+
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            Navigator.pop(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustoCad(),
+              )
+            );
+          },
+        ),
+      ],
       iconTheme: IconThemeData(
         color: Colors.blue[100],
       ),
-      title: Text(
-        "Combustível Ideal",
-        style: TextStyle(
-          color: Colors.blue[100],
-        ),
-      ),
       backgroundColor: Colors.black45,
+
       centerTitle: true,
     );
   }
