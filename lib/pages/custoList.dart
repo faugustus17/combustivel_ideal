@@ -1,7 +1,6 @@
 import 'package:combustivel_ideal/helpers/custo_helper.dart';
 import 'package:combustivel_ideal/model/custo.dart';
 import 'package:flutter/material.dart';
-import 'custoCad.dart';
 
 class CustoList extends StatefulWidget{
   @override
