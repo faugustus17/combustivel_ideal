@@ -145,9 +145,10 @@ class _CustoCadState extends State<CustoCad>{
       appBar: buildAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
-        child: Container(
-          padding: EdgeInsets.all(10.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               TextField(
                 decoration: InputDecoration(
@@ -162,6 +163,9 @@ class _CustoCadState extends State<CustoCad>{
                 controller: _nomePostoController,
                 focusNode: _nomeFocus,
               ),
+              SizedBox(
+                height: 10.0,
+              ),
               TextField(
                 decoration: InputDecoration(
                   labelText: "Preço do álcool",
@@ -172,6 +176,9 @@ class _CustoCadState extends State<CustoCad>{
                   _custoTemp.preco_alcool = text;
                 },
                 controller: _precoAlcoolController,
+              ),
+              SizedBox(
+                height: 10.0,
               ),
               TextField(
                 decoration: InputDecoration(
@@ -184,9 +191,11 @@ class _CustoCadState extends State<CustoCad>{
                 },
                 controller: _precoGasolinaController,
               ),
+              SizedBox(
+                height: 10.0,
+              ),
               buildRaisedButton(),
             ],
-          ),
         ),
       ),
     );
