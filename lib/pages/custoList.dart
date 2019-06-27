@@ -30,30 +30,13 @@ class _CustoListState extends State<CustoList> {
 
   Widget buildAppBar(){
     return AppBar(
-
       title: Text("Combustível Ideal",
         style: TextStyle(color: Colors.blue[100]),
       ),
-      automaticallyImplyLeading: false,
-
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: (){
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CustoCad(),
-              )
-            );
-          },
-        ),
-      ],
       iconTheme: IconThemeData(
         color: Colors.blue[100],
       ),
       backgroundColor: Colors.black45,
-
       centerTitle: true,
     );
   }
@@ -100,9 +83,9 @@ class _CustoListState extends State<CustoList> {
           ),
         ),
       ),
-      /*onTap: () {
+      onTap: () {
         _showOptions(context, index);
-      },*/
+      },
     );
   }
 
@@ -116,7 +99,6 @@ class _CustoListState extends State<CustoList> {
     );
   }
 
-
   Widget buildScaffold(){
     return Scaffold(
       appBar: buildAppBar(),
@@ -126,7 +108,65 @@ class _CustoListState extends State<CustoList> {
     );
   }
 
+  void _showOptions(BuildContext context, int index) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+            onClosing: () {},
+            builder: (context) {
+              return Container(
+                color: Colors.black,
+                //padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text(
+                        "Excluir",
+                        style: TextStyle(color: Colors.white, fontSize: 16.0),
+                      ),
+                      onPressed: () {
+                        _excluirCusto(context, index);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
 
+  void _excluirCusto(BuildContext context, int index) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Exclusão"),
+            content: Text("Deseja continuar?"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Sim"),
+                onPressed: () {
+                  helper.delete(lsCustos[index].id);
+                  setState(() {
+                    lsCustos.removeAt(index);
+                    Navigator.pop(context);
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              FlatButton(
+                  child: Text("Não"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  }),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
