@@ -18,8 +18,8 @@ class CustoHelper{
     final String sql = "CREATE TABLE custo ("
         "c_id INTEGER PRIMARY KEY, "
         "c_nome_posto TEXT, "
-        "c_preco_alcool REAL, "
-        "c_preco_gasolina REAL, "
+        "c_preco_alcool TEXT, "
+        "c_preco_gasolina TEXT, "
         "c_data_hora TEXT"
     ")";
 

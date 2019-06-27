@@ -1,6 +1,7 @@
 import 'package:combustivel_ideal/helpers/custo_helper.dart';
 import 'package:combustivel_ideal/model/custo.dart';
 import 'package:flutter/material.dart';
+import 'custoCad.dart';
 
 class CustoList extends StatefulWidget{
   @override
@@ -46,6 +47,9 @@ class _CustoListState extends State<CustoList> {
   Widget buildCardCusto(BuildContext context, int index) {
     return GestureDetector(
       child: Card(
+        shape: StadiumBorder(
+          side: BorderSide(width: 1.0),
+        ),
         child: Padding(
           padding: EdgeInsets.all(10.0),
           child: Row(
@@ -55,22 +59,22 @@ class _CustoListState extends State<CustoList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    Text("Posto: "+
                       lsCustos[index].nome_posto ?? "-",
                       style: TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    Text("Preço do álcool: R\$ "+
                       lsCustos[index].preco_alcool ?? "-",
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    Text("Preço da gasolina: R\$ "+
                       lsCustos[index].preco_gasolina ?? "-",
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    Text("Consulta realizada em: "+
                       lsCustos[index].data_hora ?? "-",
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.bold),

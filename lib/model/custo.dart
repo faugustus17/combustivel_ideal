@@ -1,8 +1,8 @@
 class Custo{
   int id;
   String nome_posto;
-  double preco_alcool;
-  double preco_gasolina;
+  String preco_alcool;
+  String preco_gasolina;
   String data_hora;
 
   Custo();

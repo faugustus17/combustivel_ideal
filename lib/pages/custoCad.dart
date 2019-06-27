@@ -1,3 +1,4 @@
+import 'package:combustivel_ideal/helpers/custo_helper.dart';
 import 'package:combustivel_ideal/model/custo.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
@@ -5,15 +6,17 @@ import 'package:date_format/date_format.dart';
 import 'custoList.dart';
 
 class CustoCad extends StatefulWidget{
+  @override
   final Custo custo;
+
   CustoCad({this.custo});
 
-  @override
   _CustoCadState createState() => _CustoCadState();
-
 }
 
 class _CustoCadState extends State<CustoCad>{
+
+  CustoHelper helper = CustoHelper();
 
   String _data='';
 
@@ -37,8 +40,8 @@ class _CustoCadState extends State<CustoCad>{
       _custoTemp = Custo.fromMap(widget.custo.toMap());
 
       _nomePostoController.text = _custoTemp.nome_posto;
-      _preco_alcoolController.text = _custoTemp.preco_alcool.toString();
-      _preco_gasolinaController.text = _custoTemp.preco_gasolina.toString();
+      _preco_alcoolController.text = _custoTemp.preco_alcool;
+      _preco_gasolinaController.text = _custoTemp.preco_gasolina;
       _data_horaCntroller.text = _custoTemp.data_hora;
     }
   }
@@ -72,6 +75,58 @@ class _CustoCadState extends State<CustoCad>{
     );
   }
 
+  /*void _showCustoCad({Custo custo}) async {
+    final regCusto = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CustoCad(
+          custo: custo
+      )),
+    );
+
+    if (regCusto != null) {
+      if (custo != null) {
+        await helper.update(regCusto);
+      } else {
+        await helper.insert(regCusto);
+      }
+      //_loadAllCustos();
+    }
+  }*/
+
+  void _showAlert(){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("Alerta",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0),
+            ),
+            content:  Text("Para o abastecimento com "+_calcular()+
+                " é mais vantajoso!",
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 20.0),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  /*print(_data);
+                  print(_nomePostoController.text);
+                  print(_preco_alcoolController.text);
+                  print(_preco_gasolinaController.text);*/
+                  print(_custoTemp);
+                  Navigator.pop(context);
+                  helper.insert(_custoTemp);
+                  initState();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        }
+    );
+  }
+
   Widget buildRaisedButton(){
     return RaisedButton(
       shape: RoundedRectangleBorder(
@@ -87,10 +142,10 @@ class _CustoCadState extends State<CustoCad>{
         if(_custoTemp.nome_posto != null && _custoTemp.nome_posto.isNotEmpty){
           setState(() {
             _data = formatDate(DateTime.now(),
-                [dd, '/', mm, '/', yyyy, 'as', HH, ':', nn, ":", ss]).toString();
+                [dd, '/', mm, '/', yyyy, ' as ', HH, ':', nn, ":", ss]).toString();
+            _custoTemp.data_hora = _data;
+            _showAlert();
           });
-          _custoTemp.data_hora = _data;
-          Navigator.pop(context, _custoTemp);
         } else {
           FocusScope.of(context).requestFocus(_nomeFocus);
         }
@@ -129,7 +184,7 @@ class _CustoCadState extends State<CustoCad>{
                 keyboardType: TextInputType.number,
                 onChanged: (text){
                   _custoEditado = true;
-                  _custoTemp.preco_alcool =  double.parse(text);
+                  _custoTemp.preco_alcool = text;
                 },
                 controller: _preco_alcoolController,
               ),
@@ -141,7 +196,7 @@ class _CustoCadState extends State<CustoCad>{
                 keyboardType: TextInputType.number,
                 onChanged: (text){
                   _custoEditado = true;
-                  _custoTemp.preco_gasolina =  double.parse(text);
+                  _custoTemp.preco_gasolina = text;
                 },
                 controller: _preco_gasolinaController,
               ),
@@ -153,19 +208,15 @@ class _CustoCadState extends State<CustoCad>{
     );
   }
 
-  void _calcular(){
-    double pAlcool = double.parse(_preco_alcoolController.text);
-    double pGasolina = double.parse(_preco_gasolinaController.text);
-
-
+  String _calcular(){
+    double resultado = double.parse(_preco_alcoolController.text)
+        / double.parse(_preco_gasolinaController.text);
+    if(resultado > 0.7){
+      return ("a Gasolina");
+    }else{
+      return ("o Álcool");
+    }
   }
-
-  /*void _getDate(){
-    return setState(() {
-      _data = formatDate(DateTime.now(),
-          [dd, '/', mm, '/', yyyy, 'as', HH, ':', nn, ":", ss]).toString();
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
